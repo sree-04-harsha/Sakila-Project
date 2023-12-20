@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.fulwebsite {
+    width: 1069px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1300px;
+    margin: auto;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #22BFA0;
+    box-shadow: 1px snow;
+}
+
+.logo {
+    color: aliceblue;
+}
+
+.row {
+    width: 100%;
+    text-align: center;
+    background-image: url(https://th.bing.com/th/id/OIP.Se3UVS4mdGLoFfPV2bH42gHaEK?rs=1&pid=ImgDetMain);
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    padding: 50px;
+    box-sizing: border-box;
+
+}
+
+.row h1,
+p,
+a {
+    color: aliceblue;
+    text-decoration: none;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn {
+    display: inline-block;
+    background: #ff523b00;
+    color: #fff;
+    padding: 8px 30px;
+    margin: 30px 0;
+    border: 2px solid white;
+    border-radius: 30px;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background: #ffffff;
+    color: black;
+}
+
+nav {
+    flex: 1;
+    text-align: right;
+}
+
+nav ul {
+    display: inline-block;
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+/* services section part startgs  */
+.ser-row {
+    display: flex;
+    /* flex-basis: 25%; */
+    padding: 15px;
+    transition: 0.5s;
+    margin: 10px 20px;
+}
+
+.service {
+    width: 1300px;
+    margin: auto;
+    border-bottom: 2px solid #22BFA0;
+}
+
+.service h1 {
+    text-align: center;
+    color: black;
+    padding: 25px;
+}
+
+.service p {
+    text-align: center;
+    color: black;
+    margin-bottom: 80px;
+}
+
+.box {
+    text-align: center;
+}
+
+.box i {
+    color: #22BFA0;
+    font-size: 30px;
+}
+
+/* About section coding start:  */
+.about {
+    width: 1300px;
+    margin: auto;
+}
+
+.about h1 {
+    font-size: 26px;
+    text-align: center;
+    padding-top: 50px;
+    text-transform: capitalize;
+}
+
+.about p {
+    font-size: 14px;
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    color: black;
+}
+
+.about-row {
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.about-col-1 {
+    flex-basis: 50%;
+    min-height: 300px;
+}
+
+.col-2 img {
+    max-width: 100%;
+    padding: 50px 0;
+}
+
+.about-col-2 h4 {
+    font-size: 50px;
+    line-height: 60px;
+    margin: 25px 0;
+}
+
+.about-col-1 p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* contact us codding start  */
+.contact-us {
+    width: 1300px;
+    margin: auto;
+    text-align: center;
+    background-color: rgb(215, 215, 215);
+    box-sizing: border-box;
+    margin-top: 25px;
+}
+
+.contact-us p {
+    padding-top: 15px;
+    padding-bottom: 50px;
+    color: black;
+}
+
+.contact-us h1 {
+    padding-top: 50px;
+}
+
+.contact-row {
+    display: flex;
+    text-align: center;
+    margin: 20px 10px;
+}
+
+.contact-col {
+    flex-basis: 30%;
+    min-height: 150px;
+}
+
+.contact-col p {
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.contact-col i {
+    color: #22BFA0;
+    font-size: 20px;
+}
+
+/* footer coding start  */
+.footer {
+    width: 1300px;
+    margin: auto;
+}
+
+.footer-row {
+    text-align: center;
+    background-color: #22BFA0;
+    margin-top: -20px;
+    padding: 15px;
+}
+
+.footer-row i {
+    padding-left: 10px;
+}
+
+.footer-row-copy {
+    background-color: black;
+    color: wheat;
+    text-align: center;
+}
+
+nav ul :hover {
+    border-radius: 20px;
+    background: #ffffff;
+    color: black;
+    transition: 0.8s;
+}

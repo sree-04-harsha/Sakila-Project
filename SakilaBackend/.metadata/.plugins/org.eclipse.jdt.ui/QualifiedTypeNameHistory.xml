@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.cg.sakila.repositories.CustomerRepository"/>
+    <fullyQualifiedTypeName name="com.cg.sakila.service.CustomerService"/>
+    <fullyQualifiedTypeName name="com.cg.sakila.enitites.Customer"/>
+    <fullyQualifiedTypeName name="com.cg.sakila.enitites.Address"/>
+    <fullyQualifiedTypeName name="com.cg.sakila.dto.ErrorResp"/>
+    <fullyQualifiedTypeName name="com.cg.sakila.Payload.ErrorResp"/>
+    <fullyQualifiedTypeName name="com.cg.sakila.exception.ResourceNotFound"/>
+</qualifiedTypeNameHistroy>

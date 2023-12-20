@@ -1,0 +1,58 @@
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  background: #f4f4f4;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.form h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.field-wrap {
+  margin-bottom: 20px;
+}
+
+.field-wrap label {
+  font-weight: bold;
+}
+
+.field-wrap input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.forgot {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.forgot a {
+  color: #777;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: #45a049;
+}

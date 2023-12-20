@@ -1,0 +1,39 @@
+<body>
+  <h2>Film List</h2>
+  <table class="film-table">
+    <thead>
+      <tr>
+        <th class="column-border">Film ID</th>
+        <th class="column-border">Title</th>
+        <th class="column-border">Release Year</th>
+        <th class="column-border">Language</th>
+        <th class="column-border">Rental Rate</th>
+        <th class="column-border">Length</th>
+        <th class="column-border">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="id" type="text" placeholder="by ID" (keyup)="filterById()" /></td>
+        <td><input id="title" type="text" placeholder="by Title" (keyup)="filterByTitle()" /></td>
+        <td><input id="year" type="text" placeholder="by Year" (keyup)="filterByYear()" /></td>
+        <td><input id="language" type="text" placeholder="by Language" (keyup)="filterByLanguage()" /></td>
+        <td><input id="rent" type="text" placeholder="by Rental Rate" (keyup)="filterByRent()" /></td>
+        <td><input id="length" type="text" placeholder="by Length" (keyup)="filterByLength()" /></td>
+        <td><input id="rating" type="text" placeholder="by Rating" (keyup)="filterByRating()" /></td>
+      </tr>
+      <tr *ngIf="filteredFilms.length === 0 && hasFilterCriteria()">
+        <td colspan="7">No Records Found</td>
+      </tr>
+      <tr *ngFor="let film of count==0 ? films : filteredFilms">
+        <td class="column-border">{{ film.filmId }}</td>
+        <td class="column-border">{{ film.title }}</td>
+        <td class="column-border">{{ film.releaseYear }}</td>
+        <td class="column-border">{{ film.language.name }}</td>
+        <td class="column-border">{{ film.rentalRate }}</td>
+        <td class="column-border">{{ film.length }}</td>
+        <td class="column-border">{{ film.rating }}</td>
+      </tr>
+    </tbody>
+  </table>
+</body>

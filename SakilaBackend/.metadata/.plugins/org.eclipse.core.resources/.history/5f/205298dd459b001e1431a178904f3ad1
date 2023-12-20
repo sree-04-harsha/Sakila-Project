@@ -1,0 +1,151 @@
+package com.cg.sakila.controllers;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.cg.sakila.enitites.Address;
+import com.cg.sakila.enitites.Customer;
+import com.cg.sakila.exception.CustomException;
+import com.cg.sakila.service.CustomerService;
+
+@RestController
+@RequestMapping("/api/customer")
+@Validated
+@CrossOrigin(origins = "http://localhost:4200")
+public class CustomerController {
+
+	private final CustomerService customerservice;
+
+	@Autowired
+	public CustomerController(CustomerService customerservice) {
+		super();
+		this.customerservice = customerservice;
+	}
+
+	@PostMapping("/post")
+	public ResponseEntity<String> addCustomer(@RequestBody Customer customer) {
+		customerservice.addCustomer(customer);
+		return new ResponseEntity<>("Record Created Successfully", HttpStatus.OK);
+	}
+
+	@GetMapping("/getAll")
+	public ResponseEntity<List<Customer>> getAllCustomers() {
+		return new ResponseEntity<>(customerservice.findAllCustomers(), HttpStatus.OK);
+	}
+
+	// get by lastname
+	@GetMapping("/lastname/{ln}")
+	public ResponseEntity<List<Customer>> searchCustomersByLastName(@PathVariable("ln") String lastName) {
+		List<Customer> customers = customerservice.findCustomersByLastName(lastName);
+		return new ResponseEntity<>(customers, HttpStatus.OK);
+	}
+
+	// get by first Name
+	@GetMapping("/firstname/{fn}")
+	public ResponseEntity<List<Customer>> searchCustomersByFirstName(@PathVariable("fn") String firstName) {
+		List<Customer> customers = customerservice.findCustomersByFirstName(firstName);
+		return new ResponseEntity<>(customers, HttpStatus.OK);
+	}
+
+	@GetMapping("/email/{email}")
+	public ResponseEntity<Customer> searchCustomerByEmail(@PathVariable("email") String email) {
+		Customer customer = customerservice.findCustomerByEmail(email);
+		return new ResponseEntity<>(customer, HttpStatus.OK);
+	}
+
+	@GetMapping("/city/{city}")
+	public List<Customer> getCustomersByCity(@PathVariable("city") String city) {
+		return customerservice.getCustomersByCity(city);
+	}
+
+	@GetMapping("/country/{country}")
+	public List<Customer> getCustomersByCountry(@PathVariable("country") String country) {
+		return customerservice.getCustomersByCountry(country);
+	}
+
+	@PutMapping("/{id}/address")
+	public ResponseEntity<Customer> assignAddressToCustomer(@PathVariable("id") int customerId,
+			@RequestBody Address address) {
+		Customer customer = customerservice.assignAddressToCustomer(customerId, address);
+		return new ResponseEntity<>(customer, HttpStatus.OK);
+	}
+
+	@GetMapping("/active")
+	public ResponseEntity<List<Customer>> searchActiveCustomers() {
+		List<Customer> customers = customerservice.findActiveCustomers();
+		return new ResponseEntity<>(customers, HttpStatus.OK);
+	}
+
+	@GetMapping("/inactive")
+	public ResponseEntity<List<Customer>> searchInactiveCustomers() {
+		List<Customer> customers = customerservice.findInactiveCustomers();
+		return new ResponseEntity<>(customers, HttpStatus.OK);
+	}
+
+	@GetMapping("/phone/{phone}")
+	public ResponseEntity<Customer> searchCustomerByPhone(@PathVariable("phone") String phone) {
+		Customer customer = customerservice.findCustomerByPhone(phone);
+		return new ResponseEntity<>(customer, HttpStatus.OK);
+	}
+
+	@PutMapping("/update/fn/{id}")
+	public ResponseEntity<Customer> updateCustomerFirstName(@PathVariable("id") int id,
+			@RequestBody Map<String, String> requestBody) {
+		String firstName = requestBody.get("firstName");
+		Customer updatedCustomer = customerservice.updateCustomerFirstName(id, firstName);
+		return ResponseEntity.ok(updatedCustomer);
+	}
+
+	@PutMapping("/update/ln/{id}")
+	public ResponseEntity<Customer> updateCustomerLastName(@PathVariable("id") int id,
+			@RequestBody Map<String, String> requestBody) {
+		String lastName = requestBody.get("lastName");
+		Customer updatedCustomer = customerservice.updateCustomerLastName(id, lastName);
+		return ResponseEntity.ok(updatedCustomer);
+	}
+
+	@PutMapping("/update/email/{id}")
+	public ResponseEntity<Customer> updateCustomerEmail(@PathVariable("id") int id,
+			@RequestBody Map<String, String> requestBody) {
+		String email = requestBody.get("email");
+		Customer updatedCustomer = customerservice.updateCustomerEmail(id, email);
+		return ResponseEntity.ok(updatedCustomer);
+	}
+
+	@PutMapping("/update/store/{id}")
+	public ResponseEntity<Customer> assignStoreToCustomer(@PathVariable("id") int id,
+			@RequestParam("storeId") int storeId) {
+		Optional<Customer> updatedCustomer = customerservice.assignStoreToCustomer(id, storeId);
+		if (updatedCustomer.isEmpty()) {
+			throw new CustomException("Not found");
+		}
+		return new ResponseEntity<>(updatedCustomer.get(), HttpStatus.OK);
+	}
+
+	@PutMapping("/update/phone/{id}")
+	public ResponseEntity<Customer> updateCustomerPhone(@PathVariable("id") int customerId,
+			@RequestParam("phone") String phone) {
+		Customer updatedCustomer = customerservice.updateCustomerPhone(customerId, phone);
+		return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}")
+	public Customer getCustomerById(@PathVariable int id) {
+		return customerservice.getCustomerById(id);
+	}
+}

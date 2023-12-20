@@ -1,0 +1,99 @@
+<div class="container">
+  <h2>Add Film</h2>
+  <form (ngSubmit)="addFilm()" #filmForm="ngForm" class="needs-validation" novalidate>
+
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" name="title" [(ngModel)]="film.title" required #title="ngModel"
+        [ngClass]="{ 'is-invalid': filmForm.submitted && title.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && title.invalid">
+        Title is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" [(ngModel)]="film.description" required
+        #description="ngModel" [ngClass]="{ 'is-invalid': filmForm.submitted && description.invalid }"></textarea>
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && description.invalid">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="releaseYear">Release Year:</label>
+      <input type="number" class="form-control" id="releaseYear" name="releaseYear" [(ngModel)]="film.releaseYear"
+        required #releaseYear="ngModel" [ngClass]="{ 'is-invalid': filmForm.submitted && releaseYear.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && releaseYear.invalid">
+        Release Year is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="language">Language:</label>
+      <input type="number" class="form-control" id="language" name="language" [(ngModel)]="film.language.languageId"
+        required #language="ngModel" [ngClass]="{ 'is-invalid': filmForm.submitted && language.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && language.invalid">
+        Language is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rentalDuration">Rental Duration (in days):</label>
+      <input type="number" class="form-control" id="rentalDuration" name="rentalDuration"
+        [(ngModel)]="film.rentalDuration" required #rentalDuration="ngModel"
+        [ngClass]="{ 'is-invalid': filmForm.submitted && rentalDuration.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && rentalDuration.invalid">
+        Rental Duration is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rentalRate">Rental Rate:</label>
+      <input type="number" class="form-control" id="rentalRate" name="rentalRate" [(ngModel)]="film.rentalRate" required
+        #rentalRate="ngModel" [ngClass]="{ 'is-invalid': filmForm.submitted && rentalRate.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && rentalRate.invalid">
+        Rental Rate is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="length">Length:</label>
+      <input type="number" class="form-control" id="length" name="length" [(ngModel)]="film.length" required
+        #length="ngModel" [ngClass]="{ 'is-invalid': filmForm.submitted && length.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && length.invalid">
+        Length is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="replacementCost">Replacement Cost:</label>
+      <input type="number" class="form-control" id="replacementCost" name="replacementCost"
+        [(ngModel)]="film.replacementCost" required #replacementCost="ngModel"
+        [ngClass]="{ 'is-invalid': filmForm.submitted && replacementCost.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && replacementCost.invalid">
+        Replacement Cost is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="rating">Rating:</label>
+      <input type="text" class="form-control" id="rating" name="rating" [(ngModel)]="film.rating" required
+        #rating="ngModel" [ngClass]="{ 'is-invalid': filmForm.submitted && rating.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && rating.invalid">
+        Rating is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="specialFeatures">Special Features:</label>
+      <input type="text" class="form-control" id="specialFeatures" name="specialFeatures"
+        [(ngModel)]="film.specialFeatures" required #specialFeatures="ngModel"
+        [ngClass]="{ 'is-invalid': filmForm.submitted && specialFeatures.invalid }">
+      <div class="invalid-feedback" *ngIf="filmForm.submitted && specialFeatures.invalid">
+        Special Features is required.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!filmForm.form.valid">Add Film</button>
+  </form>
+</div>

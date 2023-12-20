@@ -1,0 +1,5 @@
+<p style="text-align: center;">Your Order Details</p>
+
+<input [(ngModel)]="customerId" type="text" placeholder="enter customer id...">
+<button (click)="getFilm()">show orders</button>
+<p *ngFor="let i of title">You have ordered - {{i}}</p>

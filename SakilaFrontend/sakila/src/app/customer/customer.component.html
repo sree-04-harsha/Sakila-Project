@@ -1,0 +1,373 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2">
+      <div class="sidebar">
+        <table>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(1)">Add Customer</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(2)">Customer List</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(3)">Update Customer</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(4)">Active Customers</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(5)">Inactive Customers</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(6)">Search byId</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="col-md-10">
+      <div class="content" style="background-color: #c3ead8;">
+        <!-- Section 1: Add Customer -->
+        <div class="container" *ngIf="showSection === 1">
+          <h2>Add Customer</h2>
+          <form #customerForm="ngForm" (ngSubmit)="onSubmitCustomerForm(customerForm)">
+
+            <!-- <div class="form-group">
+              <label for="storeId">Customer ID</label>
+              <input type="number" class="form-control" id="customerId" name="customerId"
+                [(ngModel)]="customerData.customerId" required>
+            </div> -->
+
+            <div class="form-group">
+              <label for="storeId">Store ID</label>
+              <input type="number"  class="form-control" value="{{customerData.storeId}}" id="storeId" name="storeId" 
+                required>
+            </div>
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="firstName"
+                [(ngModel)]="customerData.firstName" required pattern="[a-zA-Z ]*">
+              <div class="error-message"
+                *ngIf="customerForm.controls['firstName'].invalid && (customerForm.controls['firstName'].dirty || customerForm.controls['firstName'].touched)">
+                Invalid first name. Only letters and spaces are allowed.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="customerData.lastName"
+                required pattern="[a-zA-Z ]*">
+              <div class="error-message"
+                *ngIf="customerForm.controls['lastName'].invalid && (customerForm.controls['lastName'].dirty || customerForm.controls['lastName'].touched)">
+                Invalid last name. Only letters and spaces are allowed.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" name="email" [(ngModel)]="customerData.email"
+                required>
+              <div class="error-message"
+                *ngIf="customerForm.controls['email'].invalid && (customerForm.controls['email'].dirty || customerForm.controls['email'].touched)">
+                Invalid email format.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="addressId">Address ID</label>
+              <input type="number" class="form-control" id="addressId" name="addressId"
+                [(ngModel)]="customerData.address.addressId" required>
+            </div>
+            <!-- <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="address" name="address"
+                [(ngModel)]="customerData.address.address" required>
+            </div>
+            <div class="form-group">
+              <label for="district">District</label>
+              <input type="text" class="form-control" id="district" name="district"
+                [(ngModel)]="customerData.address.district" required>
+            </div>
+            <div class="form-group">
+              <label for="cityId">City ID</label>
+              <input type="number" class="form-control" id="cityId" name="cityId"
+                [(ngModel)]="customerData.address.city.cityId" required>
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" name="city" [(ngModel)]="customerData.address.city.city"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="countryId">Country ID</label>
+              <input type="number" class="form-control" id="countryId" name="countryId"
+                [(ngModel)]="customerData.address.city.country.countryId" required>
+            </div>
+            <div class="form-group">
+              <label for="postalCode">Postal Code</label>
+              <input type="text" class="form-control" id="postalCode" name="postalCode"
+                [(ngModel)]="customerData.address.postalCode" required>
+            </div> -->
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" class="form-control" id="phone" name="phone" [(ngModel)]="customerData.address.phone"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="active">Active</label>
+              <select class="form-control" id="active" name="active" [(ngModel)]="customerData.active" required>
+                <option value="1">Inactive</option>
+                <option value="1">Active</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success">Add Customer</button>
+            <div class="alert alert-success mt-3" *ngIf="updateSuccessMessage">
+              {{ updateSuccessMessage }}
+            </div>
+            <div class="alert alert-danger mt-3" *ngIf="updateErrorMessage">
+              {{ updateErrorMessage }}
+            </div>
+          </form>
+        </div>
+        <!-- Section 2: Customer List -->
+        <div class="container" *ngIf="showSection === 2">
+          <h2>Customer List</h2>
+          <div class="table-smaller">
+            <table class="table table-striped table-smaller">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Store ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Active</th>
+                  <th>Create Date</th>
+                  <th>Last Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let customer of customerList">
+                  <td>{{ customer.customerId }}</td>
+                  <td>{{ customer.storeId }}</td>
+                  <td>{{ customer.firstName }}</td>
+                  <td>{{ customer.lastName }}</td>
+                  <td>{{ customer.email }}</td>
+                  <td>{{ customer.address.address }}</td>
+                  <td>{{ customer.active }}</td>
+                  <td>{{ customer.createDate }}</td>
+                  <td>{{ customer.lastUpdate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="container" *ngIf="showSection === 3">
+          <!-- Update Customer Form -->
+          <div class="container">
+            <div>
+              <div>
+                <button type="button" class="btn btn-update" (click)="toggleUpdateSection('firstName')">Update First
+                  Name</button>
+              </div> <br>
+              <div>
+                <button type="button" class="btn btn-update" (click)="toggleUpdateSection('lastName')">Update Last
+                  Name</button>
+              </div><br>
+              <div>
+                <button type="button" class="btn btn-update" (click)="toggleUpdateSection('email')">Update
+                  Email</button>
+              </div><br>
+
+              <div>
+                <button type="button" class="btn btn-update" (click)="toggleUpdateSection('phone')">Update Phone
+                  Number</button>
+              </div><br>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div *ngIf="updateSection === 'firstName'">
+                  <div class="form-group">
+                    <label for="customerId">Customer ID:</label>
+                    <input type="number" class="form-control" id="customerId" name="customerId" [(ngModel)]="customerId"
+                      required>
+                    <label for="updateFirstName">New First Name:</label>
+                    <input type="text" class="form-control" id="updateFirstName" name="updateFirstName"
+                      [(ngModel)]="customerData.firstName" required>
+                    <button class="btn btn-success" (click)="updateFirstName()">Update</button>
+                  </div>
+                </div>
+
+                <div *ngIf="updateSection === 'lastName'">
+                  <div class="form-group">
+                    <label for="customerId">Customer ID:</label>
+                    <input type="number" class="form-control" id="customerId" name="customerId" [(ngModel)]="customerId"
+                      required>
+                    <label for="updateLastName">New Last Name:</label>
+                    <input type="text" class="form-control" id="updateLastName" name="updateLastName"
+                      [(ngModel)]="customerData.lastName" required>
+                    <button class="btn btn-success" (click)="updateLastName()">Update</button>
+                  </div>
+                </div>
+
+                <div *ngIf="updateSection === 'email'">
+                  <div class="form-group">
+                    <label for="customerId">Customer ID:</label>
+                    <input type="number" class="form-control" id="customerId" name="customerId" [(ngModel)]="customerId"
+                      required>
+                    <label for="updateEmail">New Email:</label>
+                    <input type="email" class="form-control" id="updateEmail" name="updateEmail"
+                      [(ngModel)]="customerData.email" required>
+                    <button class="btn btn-success" (click)="updateEmail()">Update</button>
+                  </div>
+                </div>
+
+                <div class="alert alert-success mt-3" *ngIf="updateSuccessMessage">
+                  {{ updateSuccessMessage }}
+                </div>
+                <div class="alert alert-danger mt-3" *ngIf="updateErrorMessage">
+                  {{ updateErrorMessage }}
+                </div>
+
+                <div *ngIf="updateSection === 'phone'">
+                  <div class="form-group">
+                    <label for="customerId">Customer ID:</label>
+                    <input type="number" class="form-control" id="customerId" name="customerId" [(ngModel)]="customerId"
+                      required>
+                    <label for="updatePhone">New Phone Number:</label>
+                    <input type="phone" class="form-control" id="updatePhone" name="updatePhone"
+                      [(ngModel)]="customerData.address.phone" required>
+                    <button class="btn btn-success" (click)="updatePhone()">Update</button>
+                  </div>
+                </div>
+
+                <div class="alert alert-success mt-3" *ngIf="updateSuccessMessage">
+                  {{ updateSuccessMessage }}
+                </div>
+                <div class="alert alert-danger mt-3" *ngIf="updateErrorMessage">
+                  {{ updateErrorMessage }}
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container" *ngIf="showSection === 4">
+          <h2>Active Customers</h2>
+          <div class="table-smaller">
+            <table class="table table-striped table-smaller">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Customer ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Last Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let customer of activeCustomers">
+                  <td>{{ customer.customerId }}</td>
+                  <td>{{ customer.firstName }}</td>
+                  <td>{{ customer.lastName }}</td>
+                  <td>{{ customer.email }}</td>
+                  <td>{{ customer.address.address }}</td>
+                  <td>{{ customer.address.phone }}</td>
+                  <td>{{ customer.lastUpdate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+        <div class="container" *ngIf="showSection === 5">
+          <h2>Inactive Customers</h2>
+          <div class="table-smaller">
+            <table class="table table-striped table-smaller">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Customer ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Last Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let customer of activeCustomers">
+                  <td>{{ customer.customerId }}</td>
+                  <td>{{ customer.firstName }}</td>
+                  <td>{{ customer.lastName }}</td>
+                  <td>{{ customer.email }}</td>
+                  <td>{{ customer.address.address }}</td>
+                  <td>{{ customer.address.phone }}</td>
+                  <td>{{ customer.lastUpdate }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+
+
+
+        <div class="container" *ngIf="showSection === 6">
+          <h2>SearchById</h2>
+          <input type="text" [(ngModel)]="id" placeholder="Enter your Id Please" />
+  <button (click)=" getByCustomerId(id)">click</button>
+
+  <br>
+  <br>
+  <table>
+    <!--<h1 style="margin:10px" >Hello, {{customer.firstName}}</h1>-->
+    <tr aria-colspan="2" style="font-size: 25px ;" class="hello">Hello, {{customer.firstName}}</tr>
+    <tr>
+      <td class="td1">First Name:</td>
+      <td class="td2">
+        {{customer.firstName}}
+      </td>
+    </tr>
+
+    <tr>
+      <td class="td1">Last Name:</td>
+      <td class="td2">
+        {{customer.lastName}}
+      </td>
+    </tr>
+
+    <tr>
+      <td class="td1">Email:</td>
+      <td class="td2">
+        {{customer.email}}
+      </td>
+    </tr>
+
+    <tr>
+      <td class="td1">Registration Date:</td>
+      <td class="td2">
+        {{ customer.lastUpdate | date:'shortDate' }}
+      </td>
+    </tr>
+  </table>
+        </div>
+
+
+
+
+        <!-- Rest of the sections -->
+      </div>
+    </div>
+  </div>
+</div>

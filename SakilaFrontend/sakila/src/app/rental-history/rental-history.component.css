@@ -1,0 +1,20 @@
+table {
+    background-color: azure;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: aquamarine;
+}
+
+h2 {
+    color: brown;
+}
+
+.column-border {
+    border-right: 2px solid rgb(234, 182, 182);
+}
+
+tr {
+    border-bottom: 2px solid rgb(225, 195, 195);
+}

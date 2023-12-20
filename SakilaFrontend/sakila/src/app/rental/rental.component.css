@@ -1,0 +1,95 @@
+/* Custom table size */
+.table-smaller {
+  font-size: 12.8px;
+  /* Reduce font size */
+}
+
+.table-smaller th,
+.table-smaller td {
+  padding: 4px 8px;
+  /* Reduce padding */
+}
+
+.invoice-table {
+  font-size: 12.8px;
+  width: 90%;
+  /* Adjust the width as needed */
+  margin: 0 auto;
+}
+
+.revenue-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  border: 2px solid cadetblue
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 8px;
+  font-size: 14px;
+}
+
+button {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+/* --------------------------------------------------- */
+.film-revenue {
+  margin: 20px;
+}
+
+.film-revenue h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.film-revenue-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.film-revenue-table th,
+.film-revenue-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.film-revenue-table th {
+  font-weight: bold;
+}
+
+.film-revenue-table td {
+  vertical-align: top;
+}

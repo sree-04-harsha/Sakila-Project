@@ -1,0 +1,245 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2">
+      <div class="sidebar">
+        <table>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(1)">Show Inventory</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(2)">Add Rental</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(3)">Create Payment</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(4)">Get all payments</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(5)">Store Revenue</button></td>
+          </tr>
+          <tr>
+            <td><button type="button" class="btn" (click)="toggleSection(6)">Film Revenue</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="col-md-8">
+      <div class="content">
+        <!-- Section 1: Show Inventory -->
+        <div class="container" *ngIf="showSection === 1">
+          <h2>Show Inventory</h2>
+          <div *ngIf="isLoading">
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+          </div>
+          <div class="table-smaller" *ngIf="!isLoading">
+            <!-- Rest of the table code -->
+            <table class="table table-striped table-smaller">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Inventory ID</th>
+                  <th>Film ID</th>
+                  <th>Title</th>
+                  <th>Release Year</th>
+                  <th>Language</th>
+                  <th>Rental Duration</th>
+                  <th>Length</th>
+                  <th>Replacement Cost</th>
+                  <th>Rating</th>
+                  <th>Special Features</th>
+                  <th>Store ID</th>
+                  <th>Last Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let inventory of inventoryList">
+                  <td>{{ inventory.inventoryId }}</td>
+                  <td>{{ inventory.film.filmId }}</td>
+                  <td>{{ inventory.film.title }}</td>
+                  <td>{{ inventory.film.releaseYear }}</td>
+                  <td>{{ inventory.film.language.name }}</td>
+                  <td>{{ inventory.film.rentalDuration }}</td>
+                  <!-- <td>{{ inventory.film.rentalRate }}</td> -->
+                  <td>{{ inventory.film.length }}</td>
+                  <td>{{ inventory.film.replacementCost }}</td>
+                  <td>{{ inventory.film.rating }}</td>
+                  <td>{{ inventory.film.specialFeatures }}</td>
+                  <td>{{ inventory.store.storeId }}</td>
+                  <!-- <td>{{ inventory.store.address.address }}</td> -->
+                  <!-- <td>{{ inventory.store.address.phone }}</td> -->
+                  <td>{{ inventory.lastUpdate | date:'shortDate' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Section 2: Add Rental -->
+        <div class="container" *ngIf="showSection === 2">
+          <h2>Add Rental</h2>
+          <div class="container">
+            <form #rentalForm="ngForm" (ngSubmit)="onSubmitRentalForm()">
+              <div class="form-group">
+                <label for="inventoryId">Inventory ID</label>
+                <input type="number" class="form-control" id="inventoryId" name="inventoryId"
+                  [(ngModel)]="rentalData.inventory.inventoryId" required>
+              </div>
+              <div class="form-group">
+                <label for="customerId">Customer ID</label>
+                <input type="number" class="form-control" id="customerId" name="customerId"
+                  [(ngModel)]="rentalData.customer.customerId" required>
+              </div>
+              <div class="form-group">
+                <label for="returnDate">Return Date</label>
+                <input type="datetime-local" class="form-control" id="returnDate" name="returnDate"
+                  [(ngModel)]="rentalData.returnDate" required>
+              </div>
+              <div class="form-group">
+                <label for="staffId">Staff ID</label>
+                <input type="number" class="form-control" id="staffId" name="staffId"
+                  [(ngModel)]="rentalData.staff.staffId" required>
+              </div>
+              <button type="submit" class="btn btn-success">Create Rental</button>
+              <div class="alert alert-success mt-3" *ngIf="successMessage">
+                {{ successMessage }}
+              </div>
+              <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+                {{ errorMessage }}
+              </div>
+            </form>
+          </div>
+          <!-- Rest of the table code -->
+        </div>
+        <!-- Section 3: Create Payment -->
+        <div class="container" *ngIf="showSection === 3">
+          <div class="container">
+            <h2>Make Payment</h2>
+            <form #paymentForm="ngForm" (ngSubmit)="onSubmitPaymentForm()">
+              <div class="form-group">
+                <label for="customerId">Customer ID</label>
+                <input type="number" class="form-control" id="customerId" name="customerId"
+                  [(ngModel)]="paymentData.customer.customerId" required>
+              </div>
+              <div class="form-group">
+                <label for="staffId">Staff ID</label>
+                <input type="number" class="form-control" id="staffId" name="staffId"
+                  [(ngModel)]="paymentData.staff.staffId" required>
+              </div>
+              <div class="form-group">
+                <label for="rentalId">Rental ID</label>
+                <input type="number" class="form-control" id="rentalId" name="rentalId"
+                  [(ngModel)]="paymentData.rental.rentalId" required>
+              </div>
+              <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="paymentData.amount"
+                  required>
+              </div>
+              <button type="submit" class="btn btn-success">Make Payment</button>
+            </form>
+          </div>
+        </div>
+        <!-- Section 4: Get payments -->
+        <div class="container" *ngIf="showSection === 4">
+          <h2>Get payments</h2>
+          <div class="container">
+            <div class="table ">
+              <table class="table table-striped invoice-table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Payment ID</th>
+                    <th>Customer ID</th>
+                    <th>Customer First Name</th>
+                    <th>Customer Last Name</th>
+                    <th>Staff ID</th>
+                    <th>Staff First Name</th>
+                    <th>Staff Last Name</th>
+                    <th>Rental ID</th>
+                    <th>Inventory ID</th>
+                    <th>Amount</th>
+                    <th>Payment Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of payments">
+                    <td>{{ payment.paymentId }}</td>
+                    <td>{{ payment.customer?.customerId }}</td>
+                    <td>{{ payment.customer?.firstName }}</td>
+                    <td>{{ payment.customer?.lastName }}</td>
+                    <td>{{ payment.staff?.staffId }}</td>
+                    <td>{{ payment.staff?.firstName }}</td>
+                    <td>{{ payment.staff?.lastName }}</td>
+                    <td>{{ payment.rental?.rentalId }}</td>
+                    <td>{{ payment.rental?.inventory?.inventoryId }}</td>
+                    <td>{{ payment.amount }}</td>
+                    <td>{{ payment.paymentDate }}</td>
+                  </tr>
+                  <tr *ngIf="payments.length === 0">
+                    <td colspan="11">No payments found.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Rest of the table code -->
+        </div>
+
+        <div class="container" *ngIf="showSection ===5 ">
+          <div class="revenue-container">
+            <h2>Get Revenue by Store ID</h2>
+            <div class="input-section">
+              <input type="text" [(ngModel)]="storeId" placeholder="Enter Store ID" />
+              <button (click)="toggleRevenueList()">Fetch Revenue</button>
+            </div>
+            <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+            <table *ngIf="revenueList.length > 0">
+              <thead>
+                <tr>
+                  <th>Payment Date</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of revenueList">
+                  <td>{{ item.paymentDate | date }}</td>
+                  <td>{{ item.amount | currency: 'INR' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="container" style="background: white;border: 2px solid cadetblue;border-radius: 10px;"
+          *ngIf="showSection === 6">
+          <div class="film-revenue">
+            <h2>Film Revenue</h2>
+            <div class="search-container">
+              <input type="text" class="search-input" [(ngModel)]="searchQuery" placeholder="Search by film name">
+              <button class="search-button" (click)="searchFilm()">Search</button>
+              <div class="error-message" *ngIf="showEmptyFieldError">Field is empty. Please enter the film title.</div>
+            </div>
+            <table class="film-revenue-table">
+              <thead>
+                <tr>
+                  <th>Film Title</th>
+                  <th>Revenue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of filmRevenueData">
+                  <td>{{ item.filmTitle }}</td>
+                  <td>{{ item.amount | currency: 'INR' }}</td>
+                </tr>
+                <tr *ngIf="filmRevenueData.length === 0">
+                  <td colspan="2">No films found</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

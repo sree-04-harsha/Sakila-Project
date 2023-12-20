@@ -1,0 +1,55 @@
+<div class="container">
+
+  <h2>Film Details</h2>
+
+  <table *ngIf="film" class="film-details-table">
+    <tr>
+      <th>Title</th>
+      <td>{{ film.title }}</td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td>{{ film.description }}</td>
+    </tr>
+    <tr>
+      <th>Release Year</th>
+      <td>{{ film.releaseYear }}</td>
+    </tr>
+    <tr>
+      <th>Rental Duration</th>
+      <td>{{ film.rentalDuration }}</td>
+    </tr>
+    <tr>
+      <th>Rental Rate</th>
+      <td>{{ film.rentalRate }}</td>
+    </tr>
+    <tr>
+      <th>Length</th>
+      <td>{{ film.length }}</td>
+    </tr>
+    <tr>
+      <th>Replacement Cost</th>
+      <td>{{ film.replacementCost }}</td>
+    </tr>
+    <tr>
+      <th>Rating</th>
+      <td>{{ film.rating }}</td>
+    </tr>
+    <tr>
+      <th>Special Features</th>
+      <td>{{ film.specialFeatures }}</td>
+    </tr>
+    <tr>
+      <th>Last Update</th>
+      <td>{{ film.lastUpdate }}</td>
+    </tr>
+    <tr *ngIf="!filmFound">
+      <td colspan="2">No Records Found</td>
+    </tr>
+  </table>
+
+  <div *ngIf="!film">
+    Film details not found.
+  </div>
+
+</div>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Customer Management</title>
+  <link rel="stylesheet" href="staff.component.css">
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2">
+        <div class="">
+          <table>
+            <tr>
+              <td><button type="button" class="btn" (click)="toggleSection(1)">Add Staff</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn" (click)="toggleSection(2)">Staff List</button></td>
+            </tr>
+            <tr>
+              <td><button type="button" class="btn" (click)="toggleSection(3)">Update Staff</button></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="col-md-8">
+        <div class="content">
+          <!-- Section 1: Add Staff -->
+          <div class="container" *ngIf="showSection === 1">
+            <h2>Add Staff</h2>
+            <form #staffForm="ngForm" (ngSubmit)="onSubmit(staffForm)">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName"
+                  [(ngModel)]="staffData.firstName" required>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="staffData.lastName"
+                  required>
+              </div>
+              <div class="form-group">
+                <label for="addressId">Address ID</label>
+                <input type="number" class="form-control" id="addressId" name="addressId"
+                  [(ngModel)]="staffData.address.addressId" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="staffData.email" required>
+              </div>
+              <div class="form-group">
+                <label for="storeId">Store ID</label>
+                <input type="number" class="form-control" id="storeId" name="storeId"
+                  [(ngModel)]="staffData.store.storeId" required>
+              </div>
+              <div class="form-group">
+                <label for="active">Active</label>
+                <select class="form-control" id="active" name="active" [(ngModel)]="staffData.active" required>
+                  <option value="1">Active</option>
+                </select>
+              </div>
+              <button type="submit" class="btn-success">Add Staff</button>
+              <div class="alert alert-success mt-3" *ngIf="isSuccess">
+                Staff member added successfully!
+              </div>
+              <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+                {{ errorMessage }}
+              </div>
+            </form>
+
+          </div>
+
+          <!-- Section 2: Staff List -->
+          <div class="container" *ngIf="showSection === 2">
+            <!-- Staff List Table -->
+            <div class="container" *ngIf="showSection === 2">
+              <h2>Staff List</h2>
+              <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Staff ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Active</th>
+                    <th>Last Update</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let staff of staffList">
+                    <td>{{ staff.staffId }}</td>
+                    <td>{{ staff.firstName }}</td>
+                    <td>{{ staff.lastName }}</td>
+                    <td>{{ staff.email }}</td>
+                    <td>{{ staff.active }}</td>
+                    <td>{{ staff.lastUpdate }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+          <!-- Section 3: Update Customer -->
+          <div class="container" *ngIf="showSection === 3">
+            <!-- Update Customer Form -->
+            <div class="container">
+              <div>
+                <div>
+                  <button type="button" class="btn" (click)="toggleUpdateSection('firstName')">Update First
+                    Name</button>
+                </div> <br>
+                <div>
+                  <button type="button" class="btn" (click)="toggleUpdateSection('lastName')">Update Last Name</button>
+                </div><br>
+                <div>
+                  <button type="button" class="btn" (click)="toggleUpdateSection('email')">Update Email</button>
+                </div><br>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div *ngIf="updateSection === 'firstName'">
+                    <div class="form-group">
+                      <label for="staffId">Staff ID:</label>
+                      <input type="number" class="form-control" id="staffId" name="staffId" [(ngModel)]="staffId"
+                        required>
+                      <label for="updateFirstName">New First Name:</label>
+                      <input type="text" class="form-control" id="updateFirstName" name="updateFirstName"
+                        [(ngModel)]="staffData.firstName" required>
+                      <button class="btn-success" (click)="updateFirstName()">Update</button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="updateSection === 'lastName'">
+                    <div class="form-group">
+                      <label for="staffId">Staff ID:</label>
+                      <input type="number" class="form-control" id="staffId" name="staffId" [(ngModel)]="staffId"
+                        required>
+                      <label for="updateLastName">New Last Name:</label>
+                      <input type="text" class="form-control" id="updateLastName" name="updateLastName"
+                        [(ngModel)]="staffData.lastName" required>
+                      <button class="btn-success" (click)="updateLastName()">Update</button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="updateSection === 'email'">
+                    <div class="form-group">
+                      <label for="staffId">Staff ID:</label>
+                      <input type="number" class="form-control" id="staffId" name="staffId" [(ngModel)]="staffId"
+                        required>
+                      <label for="updateEmail">New Email:</label>
+                      <input type="email" class="form-control" id="updateEmail" name="updateEmail"
+                        [(ngModel)]="staffData.email" required>
+                      <button class="btn-success" (click)="updateEmail()">Update</button>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-success mt-3" *ngIf="updateSuccessMessage">
+                    {{ updateSuccessMessage }}
+                  </div>
+                  <div class="alert alert-danger mt-3" *ngIf="updateErrorMessage">
+                    {{ updateErrorMessage }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rest of the code -->
+</body>
+
+</html>

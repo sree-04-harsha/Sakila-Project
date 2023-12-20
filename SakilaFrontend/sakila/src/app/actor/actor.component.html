@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Actor Operations</h2>
+
+  <div class="form-group">
+    <label for="actorId">Actor ID:</label>
+    <input type="number" class="form-control" id="actorId" [(ngModel)]="actorId" required>
+  </div>
+  <div class="form-group">
+    <label for="newFirstName">New First Name:</label>
+    <input type="text" class="form-control" id="newFirstName" [(ngModel)]="newFirstName" required>
+    <button class="btn btn-primary" (click)="updateFirstName()" [disabled]="!isFormValid('firstName')">Update First
+      Name</button>
+    <div *ngIf="isFormSubmitted && !isFormValid('firstName')" class="error-message">Invalid First Name</div>
+  </div>
+  <div class="form-group">
+    <label for="newLastName">New Last Name:</label>
+    <input type="text" class="form-control" id="newLastName" [(ngModel)]="newLastName" required>
+    <button class="btn btn-primary" (click)="updateLastName()" [disabled]="!isFormValid('lastName')">Update Last
+      Name</button>
+    <div *ngIf="isFormSubmitted && !isFormValid('lastName')" class="error-message">Invalid Last Name</div>
+  </div>

@@ -1,0 +1,115 @@
+<section class="vh-75" style="background-color: #eee;">
+  <div class="container h-80">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                <form #signUpForm="ngForm" (ngSubmit)="onSubmit(signUpForm)" class="mx-1 mx-md-4">
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="firstname">First Name</label>
+                      <input type="text" id="firstname" class="form-control" name="firstname"
+                        [(ngModel)]="user.firstname" required pattern="[a-zA-Z ]*" />
+                      <div
+                        *ngIf="signUpForm.controls['firstname']?.touched && signUpForm.controls['firstname']?.errors?.['required']"
+                        class="text-danger">First Name is required.</div>
+                      <div
+                        *ngIf="signUpForm.controls['firstname']?.touched && signUpForm.controls['firstname']?.errors?.['pattern']"
+                        class="text-danger">Enter a valid name (only letters).</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="lastname">Last Name</label>
+                      <input type="text" id="lastname" class="form-control" name="lastname" [(ngModel)]="user.lastname"
+                        required pattern="[a-zA-Z ]*" />
+                      <div
+                        *ngIf="signUpForm.controls['lastname']?.touched && signUpForm.controls['lastname']?.errors?.['required']"
+                        class="text-danger">Last Name is required.</div>
+                      <div
+                        *ngIf="signUpForm.controls['lastname']?.touched && signUpForm.controls['lastname']?.errors?.['pattern']"
+                        class="text-danger">Enter a valid name (only letters).</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="email">Email</label>
+                      <input type="email" id="email" class="form-control" name="email" [(ngModel)]="user.email" required
+                        email />
+                      <div
+                        *ngIf="signUpForm.controls['email']?.touched && signUpForm.controls['email']?.errors?.['required']"
+                        class="text-danger">Email is required.</div>
+                      <div
+                        *ngIf="signUpForm.controls['email']?.touched && signUpForm.controls['email']?.errors?.['email']"
+                        class="text-danger">Enter a valid email.</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="password">Password</label>
+                      <input type="password" id="password" class="form-control" name="password"
+                        [(ngModel)]="user.password" required minlength="8" />
+                      <div
+                        *ngIf="signUpForm.controls['password']?.touched && signUpForm.controls['password']?.errors?.['required']"
+                        class="text-danger">Password is required.</div>
+                      <div
+                        *ngIf="signUpForm.controls['password']?.touched && signUpForm.controls['password']?.errors?.['minlength']"
+                        class="text-danger">Password should be at least 8 characters long.</div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label class="form-label" for="repeatPassword">Confirm Password</label>
+                      <input type="password" id="repeatPassword" class="form-control" name="repeatPassword"
+                        [(ngModel)]="user.repeatPassword" required minlength="8" />
+                      <div
+                        *ngIf="signUpForm.controls['repeatPassword']?.touched && signUpForm.controls['repeatPassword']?.errors?.['required']"
+                        class="text-danger">Confirm Password is required.</div>
+                      <div
+                        *ngIf="signUpForm.controls['repeatPassword']?.touched && signUpForm.controls['repeatPassword']?.errors?.['minlength']"
+                        class="text-danger">Password should be at least 8 characters long.</div>
+                    </div>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label">Select Role</label>
+                    <div class="form-check d-flex justify-content-between">
+                      <div>
+                        <label class="form-check-label" for="adminRole">
+                          <input class="form-check-input" type="radio" name="role" id="adminRole" value="admin"
+                            [(ngModel)]="user.role" required>
+                          Admin
+                        </label>
+                      </div>
+                      <div>
+                        <input class="form-check-input" type="radio" name="role" id="customerRole" value="customer"
+                          [(ngModel)]="user.role" required>
+                        <label class="form-check-label" for="customerRole">
+                          Customer
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

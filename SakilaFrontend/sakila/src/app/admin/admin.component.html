@@ -1,0 +1,243 @@
+<div class="container-fluid">
+      <div class="row">
+            <div class="col-md-12">
+                  <div class="navbar">
+                        <ul class="nav">
+                              <li class="nav-item" (click)="showSection(1)">
+                                    <a class="nav-link" [class.active]="section === 1">Film Operations</a>
+                              </li>
+                              <li class="nav-item" (click)="showSection(2)">
+                                    <a class="nav-link" [class.active]="section === 2">Actor Operations</a>
+                              </li>
+                              <li class="nav-item" (click)="showSection(3)">
+                                    <a class="nav-link" [class.active]="section === 3">Staff Operations</a>
+                              </li>
+                              <li class="nav-item" (click)="showSection(4)">
+                                    <a class="nav-link" [class.active]="section === 4">Customer Operations</a>
+                              </li>
+                              <li class="nav-item" (click)="showSection(5)">
+                                    <a class="nav-link" [class.active]="section === 5">Rental Operations</a>
+                              </li>
+                              <div class="ml-auto">
+                                    <button class="btn btn-danger" (click)="logout()">Logout</button>
+                              </div>
+                        </ul>
+                  </div>
+            </div>
+            <div class="col-md-12">
+                  <div class="sub-options">
+                        <div class="row">
+                              <div class="col-md-4">
+                                    <div *ngIf="section === 1">
+                                          <h2>Film Operations</h2>
+                                          <ul class="sub-nav">
+                                                <li class="sub-nav-item" (click)="showForm(1)">
+                                                      <button class="sub-nav-link"
+                                                            [class.active]="selectedForm === 1">Add Film</button>
+                                                </li>
+                                                <li class="sub-nav-item" (click)="showForm(2)">
+                                                      <button class="sub-nav-link"
+                                                            [class.active]="selectedForm === 2">Update Film</button>
+                                                </li>
+                                                <li class="sub-nav-item" (click)="showForm(3)">
+                                                      <button class="sub-nav-link"
+                                                            [class.active]="selectedForm === 3">Update Film
+                                                            Category</button>
+                                                </li>
+                                          </ul>
+                                    </div>
+                                    <div *ngIf="section === 2">
+                                          <h2>Actor Operations</h2>
+                                          <ul class="sub-nav">
+                                                <li class="sub-nav-item" (click)="showForm(1)">
+                                                      <button class="sub-nav-link"
+                                                            [class.active]="selectedForm === 1">Add Actor</button>
+                                                </li>
+                                                <li class="sub-nav-item" (click)="showForm(2)">
+                                                      <button class="sub-nav-link"
+                                                            [class.active]="selectedForm === 2">Update Name</button>
+                                                </li>
+                                                <li class="sub-nav-item" (click)="showForm(3)">
+                                                      <button class="sub-nav-link"
+                                                            [class.active]="selectedForm === 3">Assign Film to
+                                                            Actor</button>
+                                                </li>
+                                          </ul>
+                                    </div>
+                              </div>
+                              <div class="col-md-8">
+                                    <div *ngIf="section === 1">
+                                          <div *ngIf="selectedForm === 1">
+
+                                                <app-add-film></app-add-film>
+                                          </div>
+                                          <div *ngIf="selectedForm === 2">
+
+                                                <div class="set">
+                                                      <div class="container">
+                                                            <div class="container">
+                                                                  <h2>Update Movie Rental duration</h2>
+                                                                  <form (ngSubmit)="updateMovieRentalDuration()"
+                                                                        #rentalDurationForm="ngForm">
+                                                                        <div class="form-group">
+                                                                              <label for="movieId">Movie ID:</label>
+                                                                              <input type="text" class="form-control" id="movieId" name="movieId" [(ngModel)]="movieId" required>
+                                                                              <label for="rentalDuration">New Rental Duration:</label>
+                                                                              <input type="number" class="form-control" id="rentalDuration" name="rentalDuration" [(ngModel)]="newRentalDuration" required>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary"
+                                                                              [disabled]="!rentalDurationForm.valid">Update
+                                                                              Rental Duration</button>
+                                                                  </form>
+                                                                  <h2>Update Movie Rental Rate</h2>
+                                                                  <form (ngSubmit)="updateMovieRentalRate()"
+                                                                        #rentalRateForm="ngForm">
+                                                                        <div class="form-group">
+                                                                              <label for="movieId">Movie ID:</label>
+                                                                              <input type="text" class="form-control"
+                                                                                    id="movieId" name="movieId"
+                                                                                    [(ngModel)]="movieId" required>
+                                                                              <label for="rentalRate">New Rental
+                                                                                    Rate:</label>
+                                                                              <input type="number" class="form-control"
+                                                                                    id="rentalRate" name="rentalRate"
+                                                                                    [(ngModel)]="newRentalRate"
+                                                                                    required>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary"
+                                                                              [disabled]="!rentalRateForm.valid">Update
+                                                                              Rental Rate</button>
+                                                                  </form>
+                                                                  <h2>Update Movie Language</h2>
+                                                                  <form (ngSubmit)="updateMovieLanguage()"
+                                                                        #languageForm="ngForm">
+                                                                        <div class="form-group">
+                                                                              <label for="movieId">Movie ID:</label>
+                                                                              <input type="text" class="form-control"
+                                                                                    id="movieId" name="movieId"
+                                                                                    [(ngModel)]="movieId" required>
+                                                                              <label for="language">New
+                                                                                    Language:</label>
+                                                                              <input type="text" class="form-control"
+                                                                                    id="language" name="language"
+                                                                                    [(ngModel)]="newLanguage" required>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary"
+                                                                              [disabled]="!languageForm.valid">Update
+                                                                              Language</button>
+                                                                  </form>
+                                                                  <h2>Update Movie Title</h2>
+                                                                  <form (ngSubmit)="updateMovieTitle()"
+                                                                        #titleForm="ngForm">
+                                                                        <div class="form-group">
+                                                                              <label for="movieId">Movie ID:</label>
+                                                                              <input type="text" class="form-control"
+                                                                                    id="movieId" name="movieId"
+                                                                                    [(ngModel)]="movieId" required>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                              <label for="newTitle">New Title:</label>
+                                                                              <input type="text" class="form-control"
+                                                                                    id="newTitle" name="newTitle"
+                                                                                    [(ngModel)]="newTitle" required>
+                                                                        </div>
+                                                                        <button type="submit" class="btn btn-primary"
+                                                                              [disabled]="!titleForm.valid">Update
+                                                                              Title</button>
+                                                                  </form>
+                                                            </div>
+
+                                                            <h2>Update Release Year</h2>
+                                                            <form (ngSubmit)="updateMovieReleaseYear()"
+                                                                  #releaseYearForm="ngForm">
+                                                                  <div class="form-group">
+                                                                        <label for="movieId">Movie ID:</label>
+                                                                        <input type="text" class="form-control"
+                                                                              id="movieId" name="movieId"
+                                                                              [(ngModel)]="movieId" required>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label for="newReleaseYear">New Release
+                                                                              Year:</label>
+                                                                        <input type="number" class="form-control"
+                                                                              id="newReleaseYear" name="newReleaseYear"
+                                                                              [(ngModel)]="newReleaseYear" required>
+                                                                  </div>
+                                                                  <button type="submit" class="btn btn-primary"
+                                                                        [disabled]="!releaseYearForm.valid">Update
+                                                                        Release Year</button>
+                                                            </form>
+
+                                                      </div>
+                                                </div>
+                                          </div>
+                                          <div *ngIf="selectedForm === 3">
+
+                                                <div class="set">
+                                                      <div>
+                                                            <h2>Update Film Category</h2>
+                                                            <form (ngSubmit)="updateFilmCategory()"
+                                                                  #filmCategoryForm="ngForm">
+                                                                  <div class="form-group">
+                                                                        <label for="filmId">Film ID:</label>
+                                                                        <input type="number" class="form-control"
+                                                                              id="filmId" name="filmId"
+                                                                              [(ngModel)]="filmId" required>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label for="categoryId">Category ID:</label>
+                                                                        <input type="number" class="form-control"
+                                                                              id="categoryId" name="categoryId"
+                                                                              [(ngModel)]="categoryId" required>
+                                                                  </div>
+                                                                  <div class="form-group">
+                                                                        <label for="categoryName">Category Name:</label>
+                                                                        <input type="text" class="form-control"
+                                                                              id="categoryName" name="categoryName"
+                                                                              [(ngModel)]="categoryName" required>
+                                                                  </div>
+                                                                  <button type="submit" class="btn btn-primary"
+                                                                        [disabled]="!filmCategoryForm.valid">Update
+                                                                        Category</button>
+                                                            </form>
+                                                      </div>
+                                                </div>
+                                          </div>
+                                    </div>
+                                    <div *ngIf="section === 2">
+                                          <div *ngIf="selectedForm === 1">
+
+                                                <app-add-actor></app-add-actor>
+                                          </div>
+                                          <div *ngIf="selectedForm === 2">
+
+                                                <app-actor></app-actor>
+                                          </div>
+                                          <div *ngIf="selectedForm === 3">
+                                                <app-assign-film></app-assign-film>
+
+                                          </div>
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="col-md-12">
+                              <div *ngIf="section === 3" class="col-md-12">
+                                    <h2>Staff Operations</h2>
+                                    <app-staff></app-staff>
+
+                              </div>
+                              <div *ngIf="section === 4">
+                                    <h2>Customer Operations</h2>
+                                    <app-customer></app-customer>
+
+                              </div>
+                              <div *ngIf="section === 5">
+                                    <h2>Rental Operations</h2>
+                                    <app-rental></app-rental>
+
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+</div>

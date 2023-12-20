@@ -1,0 +1,34 @@
+<h2>Actor List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Actor ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Film List</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input id="id" type="text" placeholder="by ID" (keyup)="filterById()" /></td>
+      <td><input id="firstname" type="text" placeholder="by FirstName" (keyup)="filterByFirstName()" /></td>
+      <td><input id="lastname" type="text" placeholder="by LastName" (keyup)="filterByLastName()" /></td>
+    </tr>
+    <tr *ngFor="let actor of count ==0 ? actors : filteredActors">
+      <td>{{ actor.actorId }}</td>
+      <td>{{ actor.firstName }}</td>
+      <td>{{ actor.lastName }}</td>
+      <td>
+        <div class="dropdown-container">
+          <button class="dropdown-toggle" (click)="toggleDropdown(actor.actorId)">Movie List</button>
+          <ul class="dropdown-list" [hidden]="!isDropdownVisible(actor.actorId)">
+            <li *ngFor="let film of actor.films">{{ film.title }}</li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    <tr *ngIf="filteredActors.length === 0 && hasFilterCriteria()">
+      <td colspan="4">No Records Found</td>
+    </tr>
+  </tbody>
+</table>

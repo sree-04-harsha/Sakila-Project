@@ -1,0 +1,37 @@
+<body>
+  <h1 style="text-align: center;">Search Movie By Year</h1>
+  <input type="text" [(ngModel)]="year" placeholder="Enter year..." />
+  <button (click)="searchFilmsByYear(year)">Search</button>
+
+  <br>
+  <br>
+
+  <h1 *ngIF="show">Printing Records:--</h1>
+
+  <table border="1" *ngIf="show">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Release Year</th>
+      <th>Length</th>
+      <th>Rating</th>
+      <th>Rental Rate</th>
+      <th>Language</th>
+      <th>Special Features</th>
+
+    </tr>
+    <tr *ngFor="let film of films">
+      <td>{{film.title}}</td>
+      <td>{{film.description}}</td>
+      <td>{{film.releaseYear}}</td>
+      <td>{{film.length}}</td>
+      <td>{{film.rating}}</td>
+      <td>{{film.rentalRate}}</td>
+      <td>{{film.language.name}}</td>
+      <td>{{film.specialFeatures}}</td>
+
+
+    </tr>
+  </table>
+
+</body>

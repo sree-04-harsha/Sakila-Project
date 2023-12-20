@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="form-group">
+    <label for="actorId">Actor ID:</label>
+    <input type="number" class="form-control" id="actorId" [(ngModel)]="actorId">
+  </div>
+  <div class="form-group">
+    <label for="filmId">Film ID:</label>
+    <input type="number" class="form-control" id="filmId" [(ngModel)]="filmId">
+    <button class="btn btn-primary" (click)="assignFilm()" [disabled]="!actorId || !filmId">Assign Film</button>
+  </div>
+</div>

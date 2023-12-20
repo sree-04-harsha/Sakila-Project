@@ -1,0 +1,21 @@
+<div class="rental-history">
+  <h2>Rental History</h2>
+
+  <table class="rental-table" border="2">
+    <thead>
+      <tr>
+        <th>Movie Title</th>
+        <th>Rental Date</th>
+        <th>Return Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Render rental history rows dynamically -->
+      <tr *ngFor="let rental of rentalHistory">
+        <!-- <td>{{ rental.movieTitle }}</td>
+          <td>{{ rental.rentalDate }}</td>
+          <td>{{ rental.returnDate }}</td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
